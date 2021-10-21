@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.riskman.backserver.dao.TReservoirDetailDao">
+  <resultMap id="BaseResultMap" type="com.riskman.backserver.pojo.TReservoirDetail">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="InfoNatureImage" jdbcType="INTEGER" property="infonatureimage" />
+    <result column="InfoProjectImage" jdbcType="INTEGER" property="infoprojectimage" />
+    <result column="InfoProjectLayoutImage" jdbcType="INTEGER" property="infoprojectlayoutimage" />
+    <result column="InfoGeoImage" jdbcType="INTEGER" property="infogeoimage" />
+    <result column="InfoSectionImage" jdbcType="INTEGER" property="infosectionimage" />
+    <result column="ReservoirId" jdbcType="INTEGER" property="reservoirid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.riskman.backserver.pojo.TReservoirDetailWithBLOBs">
+    <result column="InfoNature" jdbcType="LONGVARCHAR" property="infonature" />
+    <result column="InfoEconomy" jdbcType="LONGVARCHAR" property="infoeconomy" />
+    <result column="InfoProject" jdbcType="LONGVARCHAR" property="infoproject" />
+    <result column="InfoProjectLayout" jdbcType="LONGVARCHAR" property="infoprojectlayout" />
+    <result column="InfoMonitor" jdbcType="LONGVARCHAR" property="infomonitor" />
+    <result column="InfoGeo" jdbcType="LONGVARCHAR" property="infogeo" />
+    <result column="InfoOrganize" jdbcType="LONGVARCHAR" property="infoorganize" />
+    <result column="InfoRules" jdbcType="LONGVARCHAR" property="inforules" />
+    <result column="InfoControl" jdbcType="LONGVARCHAR" property="infocontrol" />
+    <result column="InfoConstructHistory" jdbcType="LONGVARCHAR" property="infoconstructhistory" />
+    <result column="InfoHistory" jdbcType="LONGVARCHAR" property="infohistory" />
+    <result column="InfoDetect" jdbcType="LONGVARCHAR" property="infodetect" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, InfoNatureImage, InfoProjectImage, InfoProjectLayoutImage, InfoGeoImage, InfoSectionImage, 
+    ReservoirId
+  </sql>
+  <sql id="Blob_Column_List">
+    InfoNature, InfoEconomy, InfoProject, InfoProjectLayout, InfoMonitor, InfoGeo, InfoOrganize, 
+    InfoRules, InfoControl, InfoConstructHistory, InfoHistory, InfoDetect
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.riskman.backserver.pojo.TReservoirDetailExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_reservoir_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.riskman.backserver.pojo.TReservoirDetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_reservoir_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_reservoir_detail
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_reservoir_detail
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.riskman.backserver.pojo.TReservoirDetailExample">
+    delete from t_reservoir_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.riskman.backserver.pojo.TReservoirDetailWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_reservoir_detail (InfoNatureImage, InfoProjectImage, 
+      InfoProjectLayoutImage, InfoGeoImage, InfoSectionImage, 
+      ReservoirId, InfoNature, InfoEconomy, 
+      InfoProject, InfoProjectLayout, 
+      InfoMonitor, InfoGeo, InfoOrganize, 
+      InfoRules, InfoControl, InfoConstructHistory, 
+      InfoHistory, InfoDetect)
+    values (#{infonatureimage,jdbcType=INTEGER}, #{infoprojectimage,jdbcType=INTEGER}, 
+      #{infoprojectlayoutimage,jdbcType=INTEGER}, #{infogeoimage,jdbcType=INTEGER}, #{infosectionimage,jdbcType=INTEGER}, 
+      #{reservoirid,jdbcType=INTEGER}, #{infonature,jdbcType=LONGVARCHAR}, #{infoeconomy,jdbcType=LONGVARCHAR}, 
+      #{infoproject,jdbcType=LONGVARCHAR}, #{infoprojectlayout,jdbcType=LONGVARCHAR}, 
+      #{infomonitor,jdbcType=LONGVARCHAR}, #{infogeo,jdbcType=LONGVARCHAR}, #{infoorganize,jdbcType=LONGVARCHAR}, 
+      #{inforules,jdbcType=LONGVARCHAR}, #{infocontrol,jdbcType=LONGVARCHAR}, #{infoconstructhistory,jdbcType=LONGVARCHAR}, 
+      #{infohistory,jdbcType=LONGVARCHAR}, #{infodetect,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.riskman.backserver.pojo.TReservoirDetailWithBLOBs">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_reservoir_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="infonatureimage != null">
+        InfoNatureImage,
+      </if>
+      <if test="infoprojectimage != null">
+        InfoProjectImage,
+      </if>
+      <if test="infoprojectlayoutimage != null">
+        InfoProjectLayoutImage,
+      </if>
+      <if test="infogeoimage != null">
+        InfoGeoImage,
+      </if>
+      <if test="infosectionimage != null">
+        InfoSectionImage,
+      </if>
+      <if test="reservoirid != null">
+        ReservoirId,
+      </if>
+      <if test="infonature != null">
+        InfoNature,
+      </if>
+      <if test="infoeconomy != null">
+        InfoEconomy,
+      </if>
+      <if test="infoproject != null">
+        InfoProject,
+      </if>
+      <if test="infoprojectlayout != null">
+        InfoProjectLayout,
+      </if>
+      <if test="infomonitor != null">
+        InfoMonitor,
+      </if>
+      <if test="infogeo != null">
+        InfoGeo,
+      </if>
+      <if test="infoorganize != null">
+        InfoOrganize,
+      </if>
+      <if test="inforules != null">
+        InfoRules,
+      </if>
+      <if test="infocontrol != null">
+        InfoControl,
+      </if>
+      <if test="infoconstructhistory != null">
+        InfoConstructHistory,
+      </if>
+      <if test="infohistory != null">
+        InfoHistory,
+      </if>
+      <if test="infodetect != null">
+        InfoDetect,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="infonatureimage != null">
+        #{infonatureimage,jdbcType=INTEGER},
+      </if>
+      <if test="infoprojectimage != null">
+        #{infoprojectimage,jdbcType=INTEGER},
+      </if>
+      <if test="infoprojectlayoutimage != null">
+        #{infoprojectlayoutimage,jdbcType=INTEGER},
+      </if>
+      <if test="infogeoimage != null">
+        #{infogeoimage,jdbcType=INTEGER},
+      </if>
+      <if test="infosectionimage != null">
+        #{infosectionimage,jdbcType=INTEGER},
+      </if>
+      <if test="reservoirid != null">
+        #{reservoirid,jdbcType=INTEGER},
+      </if>
+      <if test="infonature != null">
+        #{infonature,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoeconomy != null">
+        #{infoeconomy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoproject != null">
+        #{infoproject,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoprojectlayout != null">
+        #{infoprojectlayout,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infomonitor != null">
+        #{infomonitor,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infogeo != null">
+        #{infogeo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoorganize != null">
+        #{infoorganize,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="inforules != null">
+        #{inforules,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infocontrol != null">
+        #{infocontrol,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoconstructhistory != null">
+        #{infoconstructhistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infohistory != null">
+        #{infohistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infodetect != null">
+        #{infodetect,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.riskman.backserver.pojo.TReservoirDetailExample" resultType="java.lang.Long">
+    select count(*) from t_reservoir_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_reservoir_detail
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.infonatureimage != null">
+        InfoNatureImage = #{record.infonatureimage,jdbcType=INTEGER},
+      </if>
+      <if test="record.infoprojectimage != null">
+        InfoProjectImage = #{record.infoprojectimage,jdbcType=INTEGER},
+      </if>
+      <if test="record.infoprojectlayoutimage != null">
+        InfoProjectLayoutImage = #{record.infoprojectlayoutimage,jdbcType=INTEGER},
+      </if>
+      <if test="record.infogeoimage != null">
+        InfoGeoImage = #{record.infogeoimage,jdbcType=INTEGER},
+      </if>
+      <if test="record.infosectionimage != null">
+        InfoSectionImage = #{record.infosectionimage,jdbcType=INTEGER},
+      </if>
+      <if test="record.reservoirid != null">
+        ReservoirId = #{record.reservoirid,jdbcType=INTEGER},
+      </if>
+      <if test="record.infonature != null">
+        InfoNature = #{record.infonature,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infoeconomy != null">
+        InfoEconomy = #{record.infoeconomy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infoproject != null">
+        InfoProject = #{record.infoproject,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infoprojectlayout != null">
+        InfoProjectLayout = #{record.infoprojectlayout,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infomonitor != null">
+        InfoMonitor = #{record.infomonitor,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infogeo != null">
+        InfoGeo = #{record.infogeo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infoorganize != null">
+        InfoOrganize = #{record.infoorganize,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.inforules != null">
+        InfoRules = #{record.inforules,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infocontrol != null">
+        InfoControl = #{record.infocontrol,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infoconstructhistory != null">
+        InfoConstructHistory = #{record.infoconstructhistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infohistory != null">
+        InfoHistory = #{record.infohistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infodetect != null">
+        InfoDetect = #{record.infodetect,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update t_reservoir_detail
+    set Id = #{record.id,jdbcType=INTEGER},
+      InfoNatureImage = #{record.infonatureimage,jdbcType=INTEGER},
+      InfoProjectImage = #{record.infoprojectimage,jdbcType=INTEGER},
+      InfoProjectLayoutImage = #{record.infoprojectlayoutimage,jdbcType=INTEGER},
+      InfoGeoImage = #{record.infogeoimage,jdbcType=INTEGER},
+      InfoSectionImage = #{record.infosectionimage,jdbcType=INTEGER},
+      ReservoirId = #{record.reservoirid,jdbcType=INTEGER},
+      InfoNature = #{record.infonature,jdbcType=LONGVARCHAR},
+      InfoEconomy = #{record.infoeconomy,jdbcType=LONGVARCHAR},
+      InfoProject = #{record.infoproject,jdbcType=LONGVARCHAR},
+      InfoProjectLayout = #{record.infoprojectlayout,jdbcType=LONGVARCHAR},
+      InfoMonitor = #{record.infomonitor,jdbcType=LONGVARCHAR},
+      InfoGeo = #{record.infogeo,jdbcType=LONGVARCHAR},
+      InfoOrganize = #{record.infoorganize,jdbcType=LONGVARCHAR},
+      InfoRules = #{record.inforules,jdbcType=LONGVARCHAR},
+      InfoControl = #{record.infocontrol,jdbcType=LONGVARCHAR},
+      InfoConstructHistory = #{record.infoconstructhistory,jdbcType=LONGVARCHAR},
+      InfoHistory = #{record.infohistory,jdbcType=LONGVARCHAR},
+      InfoDetect = #{record.infodetect,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_reservoir_detail
+    set Id = #{record.id,jdbcType=INTEGER},
+      InfoNatureImage = #{record.infonatureimage,jdbcType=INTEGER},
+      InfoProjectImage = #{record.infoprojectimage,jdbcType=INTEGER},
+      InfoProjectLayoutImage = #{record.infoprojectlayoutimage,jdbcType=INTEGER},
+      InfoGeoImage = #{record.infogeoimage,jdbcType=INTEGER},
+      InfoSectionImage = #{record.infosectionimage,jdbcType=INTEGER},
+      ReservoirId = #{record.reservoirid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.riskman.backserver.pojo.TReservoirDetailWithBLOBs">
+    update t_reservoir_detail
+    <set>
+      <if test="infonatureimage != null">
+        InfoNatureImage = #{infonatureimage,jdbcType=INTEGER},
+      </if>
+      <if test="infoprojectimage != null">
+        InfoProjectImage = #{infoprojectimage,jdbcType=INTEGER},
+      </if>
+      <if test="infoprojectlayoutimage != null">
+        InfoProjectLayoutImage = #{infoprojectlayoutimage,jdbcType=INTEGER},
+      </if>
+      <if test="infogeoimage != null">
+        InfoGeoImage = #{infogeoimage,jdbcType=INTEGER},
+      </if>
+      <if test="infosectionimage != null">
+        InfoSectionImage = #{infosectionimage,jdbcType=INTEGER},
+      </if>
+      <if test="reservoirid != null">
+        ReservoirId = #{reservoirid,jdbcType=INTEGER},
+      </if>
+      <if test="infonature != null">
+        InfoNature = #{infonature,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoeconomy != null">
+        InfoEconomy = #{infoeconomy,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoproject != null">
+        InfoProject = #{infoproject,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoprojectlayout != null">
+        InfoProjectLayout = #{infoprojectlayout,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infomonitor != null">
+        InfoMonitor = #{infomonitor,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infogeo != null">
+        InfoGeo = #{infogeo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoorganize != null">
+        InfoOrganize = #{infoorganize,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="inforules != null">
+        InfoRules = #{inforules,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infocontrol != null">
+        InfoControl = #{infocontrol,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoconstructhistory != null">
+        InfoConstructHistory = #{infoconstructhistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infohistory != null">
+        InfoHistory = #{infohistory,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infodetect != null">
+        InfoDetect = #{infodetect,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.riskman.backserver.pojo.TReservoirDetailWithBLOBs">
+    update t_reservoir_detail
+    set InfoNatureImage = #{infonatureimage,jdbcType=INTEGER},
+      InfoProjectImage = #{infoprojectimage,jdbcType=INTEGER},
+      InfoProjectLayoutImage = #{infoprojectlayoutimage,jdbcType=INTEGER},
+      InfoGeoImage = #{infogeoimage,jdbcType=INTEGER},
+      InfoSectionImage = #{infosectionimage,jdbcType=INTEGER},
+      ReservoirId = #{reservoirid,jdbcType=INTEGER},
+      InfoNature = #{infonature,jdbcType=LONGVARCHAR},
+      InfoEconomy = #{infoeconomy,jdbcType=LONGVARCHAR},
+      InfoProject = #{infoproject,jdbcType=LONGVARCHAR},
+      InfoProjectLayout = #{infoprojectlayout,jdbcType=LONGVARCHAR},
+      InfoMonitor = #{infomonitor,jdbcType=LONGVARCHAR},
+      InfoGeo = #{infogeo,jdbcType=LONGVARCHAR},
+      InfoOrganize = #{infoorganize,jdbcType=LONGVARCHAR},
+      InfoRules = #{inforules,jdbcType=LONGVARCHAR},
+      InfoControl = #{infocontrol,jdbcType=LONGVARCHAR},
+      InfoConstructHistory = #{infoconstructhistory,jdbcType=LONGVARCHAR},
+      InfoHistory = #{infohistory,jdbcType=LONGVARCHAR},
+      InfoDetect = #{infodetect,jdbcType=LONGVARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.riskman.backserver.pojo.TReservoirDetail">
+    update t_reservoir_detail
+    set InfoNatureImage = #{infonatureimage,jdbcType=INTEGER},
+      InfoProjectImage = #{infoprojectimage,jdbcType=INTEGER},
+      InfoProjectLayoutImage = #{infoprojectlayoutimage,jdbcType=INTEGER},
+      InfoGeoImage = #{infogeoimage,jdbcType=INTEGER},
+      InfoSectionImage = #{infosectionimage,jdbcType=INTEGER},
+      ReservoirId = #{reservoirid,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.riskman.backserver.dao.TExpertsDao">
+  <resultMap id="BaseResultMap" type="com.riskman.backserver.pojo.TExperts">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Position" jdbcType="VARCHAR" property="position" />
+    <result column="Unit" jdbcType="VARCHAR" property="unit" />
+    <result column="PositionInUnit" jdbcType="VARCHAR" property="positioninunit" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="Subject" jdbcType="VARCHAR" property="subject" />
+    <result column="Duty" jdbcType="VARCHAR" property="duty" />
+    <result column="Contact" jdbcType="VARCHAR" property="contact" />
+    <result column="ReservoirId" jdbcType="INTEGER" property="reservoirid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, Position, Unit, PositionInUnit, Name, Subject, Duty, Contact, ReservoirId
+  </sql>
+  <select id="selectByExample" parameterType="com.riskman.backserver.pojo.TExpertsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_experts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_experts
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_experts
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.riskman.backserver.pojo.TExpertsExample">
+    delete from t_experts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.riskman.backserver.pojo.TExperts">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_experts (Position, Unit, PositionInUnit, 
+      Name, Subject, Duty, 
+      Contact, ReservoirId)
+    values (#{position,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{positioninunit,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR}, #{duty,jdbcType=VARCHAR}, 
+      #{contact,jdbcType=VARCHAR}, #{reservoirid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.riskman.backserver.pojo.TExperts">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into t_experts
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="position != null">
+        Position,
+      </if>
+      <if test="unit != null">
+        Unit,
+      </if>
+      <if test="positioninunit != null">
+        PositionInUnit,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="subject != null">
+        Subject,
+      </if>
+      <if test="duty != null">
+        Duty,
+      </if>
+      <if test="contact != null">
+        Contact,
+      </if>
+      <if test="reservoirid != null">
+        ReservoirId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="positioninunit != null">
+        #{positioninunit,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null">
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="reservoirid != null">
+        #{reservoirid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.riskman.backserver.pojo.TExpertsExample" resultType="java.lang.Long">
+    select count(*) from t_experts
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_experts
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.position != null">
+        Position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unit != null">
+        Unit = #{record.unit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positioninunit != null">
+        PositionInUnit = #{record.positioninunit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        Name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subject != null">
+        Subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duty != null">
+        Duty = #{record.duty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null">
+        Contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reservoirid != null">
+        ReservoirId = #{record.reservoirid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_experts
+    set Id = #{record.id,jdbcType=INTEGER},
+      Position = #{record.position,jdbcType=VARCHAR},
+      Unit = #{record.unit,jdbcType=VARCHAR},
+      PositionInUnit = #{record.positioninunit,jdbcType=VARCHAR},
+      Name = #{record.name,jdbcType=VARCHAR},
+      Subject = #{record.subject,jdbcType=VARCHAR},
+      Duty = #{record.duty,jdbcType=VARCHAR},
+      Contact = #{record.contact,jdbcType=VARCHAR},
+      ReservoirId = #{record.reservoirid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.riskman.backserver.pojo.TExperts">
+    update t_experts
+    <set>
+      <if test="position != null">
+        Position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        Unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="positioninunit != null">
+        PositionInUnit = #{positioninunit,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="subject != null">
+        Subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null">
+        Duty = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        Contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="reservoirid != null">
+        ReservoirId = #{reservoirid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.riskman.backserver.pojo.TExperts">
+    update t_experts
+    set Position = #{position,jdbcType=VARCHAR},
+      Unit = #{unit,jdbcType=VARCHAR},
+      PositionInUnit = #{positioninunit,jdbcType=VARCHAR},
+      Name = #{name,jdbcType=VARCHAR},
+      Subject = #{subject,jdbcType=VARCHAR},
+      Duty = #{duty,jdbcType=VARCHAR},
+      Contact = #{contact,jdbcType=VARCHAR},
+      ReservoirId = #{reservoirid,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
