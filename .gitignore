@@ -34,3 +34,5 @@ build/
 .mvn
 logs
 uploads
+src/main/resources/application.yaml
+src/main/resources/generatorConfig.xml
