@@ -47,7 +47,8 @@ public class JwtController {
     @PostMapping("/resetPassword")
     public CustomResponse resetPassword(@RequestBody JwtParam body) {
         String username = body.getUsername();
-        userDetailsService.resetPassword(username);
+        String password = body.getPassword();
+        userDetailsService.resetPassword(username, "risk" + password);
         return new CustomResponse().success();
     }
 }

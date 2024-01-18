@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -56,14 +55,15 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
      * Reset the password for a user with the given username.
      *
      * @param username the username of the user whose password should be reset
+     * @param s
      */
-    public void resetPassword(String username) {
+    public void resetPassword(String username, String password) {
         // Implement password reset logic here
         TUser user = tUserService.getUserByUserName(username);
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-        user.setPassword(bCryptPasswordEncoder.encode("123456"));
+        user.setPassword(bCryptPasswordEncoder.encode(password));
 
         tUserService.updateByPrimaryKeySelective(user);
     }
