@@ -44,6 +44,7 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/auth/login").permitAll()
+                .antMatchers("/api/auth/resetPassword").permitAll()
                 .antMatchers(
                         "/v2/api-docs",
                         "/swagger-resources",
@@ -88,7 +89,8 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/*.woff2",
                         "/*.ttf",
                         "/*.*.map",
-                        "/api/files/**"
+                        "/api/files/**",
+                        "/assets/**"
                 );
     }
 

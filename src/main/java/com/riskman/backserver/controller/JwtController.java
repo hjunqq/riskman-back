@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "api/auth")
@@ -41,5 +42,12 @@ public class JwtController {
     @GetMapping(value = "hello")
     public String hello() {
         return "Hello Jwt!!!";
+    }
+
+    @PostMapping("/resetPassword")
+    public CustomResponse resetPassword(@RequestBody JwtParam body) {
+        String username = body.getUsername();
+        userDetailsService.resetPassword(username);
+        return new CustomResponse().success();
     }
 }

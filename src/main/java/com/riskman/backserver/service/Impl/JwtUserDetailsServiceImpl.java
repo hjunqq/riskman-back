@@ -1,8 +1,6 @@
 package com.riskman.backserver.service.Impl;
 
-import com.riskman.backserver.pojo.TRole;
 import com.riskman.backserver.pojo.TUser;
-import com.riskman.backserver.pojo.TUserExample;
 import com.riskman.backserver.service.TRoleService;
 import com.riskman.backserver.service.TUserService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,6 +8,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -53,4 +52,19 @@ public class JwtUserDetailsServiceImpl implements UserDetailsService {
         return user;
     }
 
+    /**
+     * Reset the password for a user with the given username.
+     *
+     * @param username the username of the user whose password should be reset
+     */
+    public void resetPassword(String username) {
+        // Implement password reset logic here
+        TUser user = tUserService.getUserByUserName(username);
+
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        user.setPassword(bCryptPasswordEncoder.encode("123456"));
+
+        tUserService.updateByPrimaryKeySelective(user);
+    }
 }

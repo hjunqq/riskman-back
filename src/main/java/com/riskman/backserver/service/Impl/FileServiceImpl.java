@@ -3,10 +3,10 @@ package com.riskman.backserver.service.Impl;
 import com.riskman.backserver.pojo.TFilePath;
 import com.riskman.backserver.service.FileService;
 import com.riskman.backserver.service.TFilePathService;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.apache.commons.io.FilenameUtils;
 
 import javax.annotation.Resource;
 import java.io.IOException;
