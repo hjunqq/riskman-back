@@ -10,7 +10,7 @@ public class TEmergencyOrg {
     private Integer arrivedtimeimage;
 
     private Integer evacuationimage;
-
+ris
     private Integer emergencyprocessimage;
 
     private Integer reservoirid;
